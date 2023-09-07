@@ -1,8 +1,19 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { UsuarioLogadoContext } from "../../shared/contexts";
+import { ButtonLogin } from "./components/ButtonLogin";
 import { InputLogin } from "./components/InputLogin";
 
 export const Login = () => {
   const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  const { nomeDoUsuario } = useContext(UsuarioLogadoContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -34,6 +45,7 @@ export const Login = () => {
     <div>
       <form action="">
         <p>Quantidade de caracteres do email: {emailLength}</p>
+        <p>{nomeDoUsuario}</p>
 
         <InputLogin
           label="Email"
@@ -42,6 +54,7 @@ export const Login = () => {
           onPressEnter={() => inputPasswordRef.current?.focus()}
         />
         <InputLogin
+          ref={inputPasswordRef}
           type="password"
           label="Senha"
           value={senha}
@@ -70,9 +83,14 @@ export const Login = () => {
           />
         </label> */}
 
-        <button type="button" onClick={handleEntrar}>
+        {/* <button type="button" onClick={handleEntrar}>
           Entrar
-        </button>
+        </button> */}
+
+        <ButtonLogin type="button" onClick={handleEntrar} />
+        <ButtonLogin type="button" onClick={handleEntrar}>
+          Cadastrar-se
+        </ButtonLogin>
       </form>
     </div>
   );
